@@ -54,7 +54,7 @@ metadata:
 spec:
   params:
     - name: repository
-      value: "https://github.com/open-toolchain/hello-tekton"
+      value: $(params.myRepo)
 ---
 apiVersion: tekton.dev/v1alpha1
 kind: EventListener
