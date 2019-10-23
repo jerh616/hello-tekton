@@ -33,7 +33,7 @@ spec:
         - name: pipeline-pvc
           value: pipelinerun-$(uid)-pvc
         - name: repository
-          value: $(params.repository)
+          value: $(params.myRepo)
         - name: apikey
           value: $(params.apikey)
         - name: registryNamespace
@@ -54,7 +54,7 @@ metadata:
 spec:
   params:
     - name: repository
-      value: $(params.myRepo)
+      value: "https://github.com/open-toolchain/hello-tekton"
 ---
 apiVersion: tekton.dev/v1alpha1
 kind: EventListener
