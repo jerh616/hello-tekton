@@ -52,7 +52,17 @@ echo "=========================================================="
 echo -e "BUILDING CONTAINER IMAGE: ${IMAGE_NAME}:${IMAGE_TAG}"
 if [ -z "${DOCKER_ROOT}" ]; then DOCKER_ROOT=. ; fi
 if [ -z "${DOCKER_FILE}" ]; then DOCKER_FILE=${DOCKER_ROOT}/Dockerfile ; fi
-
+if [ -z "$EXTRA_BUILD_ARGS" ]; then
+  echo -e ""
+else
+  for buildArg in $EXTRA_BUILD_ARGS; do
+    if [ "$buildArg" == "--build-arg" ]; then
+      echo -e ""
+    else      
+      BUILD_ARGS="${BUILD_ARGS} --opt build-arg:$buildArg"
+    fi
+  done
+fi
 
 # Checking if buildctl is installed
 if which buildctl > /dev/null 2>&1; then
