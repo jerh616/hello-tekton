@@ -75,6 +75,8 @@ fi
 
 set -x
 ## DEPRECTATED ibmcloud cr build -t ${REGISTRY_URL}/${REGISTRY_NAMESPACE}/${IMAGE_NAME}:${IMAGE_TAG} ${DOCKER_ROOT} -f ${DOCKER_FILE}
+export BUILDKIT_HOST=tcp://localhost:1234
+
 buildctl build \
     --frontend dockerfile.v0 --opt filename=${DOCKER_FILE} --local dockerfile=${DOCKER_ROOT} \
     ${BUILD_ARGS} --local context=${DOCKER_ROOT} \
