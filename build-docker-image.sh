@@ -73,6 +73,10 @@ else
   buildctl --version
 fi
 
+echo "Logging into regional IBM Container Registry"
+ibmcloud cr region-set ${REGION}
+ibmcloud cr login
+
 set -x
 ## DEPRECTATED ibmcloud cr build -t ${REGISTRY_URL}/${REGISTRY_NAMESPACE}/${IMAGE_NAME}:${IMAGE_TAG} ${DOCKER_ROOT} -f ${DOCKER_FILE}
 
