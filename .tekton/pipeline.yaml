@@ -98,4 +98,4 @@ spec:
         - name: redis-endpoint
           value: $(params.redis-endpoint)
         - name: cloud-apikey
-          value: cloud-apikey      
+          value: $(params.cloud-apikey)      
