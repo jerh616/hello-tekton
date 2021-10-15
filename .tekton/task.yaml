@@ -297,5 +297,5 @@ spec:
         - set -eo pipefail;
           echo TESTING;
           dig ${REDIS_ENDPOINT};
-          cat ${REDIS_CERT} > certificate.txt;
+          echo "${REDIS_CERT}" > certificate.txt;
           REDIS_CERTFILE=certificate.txt redli -u rediss://${REDIS_USER}:${REDIS_PASSWORD}@${REDIS_ENDPOINT} ping;
