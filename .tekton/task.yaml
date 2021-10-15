@@ -268,6 +268,9 @@ spec:
       description: Redis Endpoint to test
     - name: cloud-apikey
       description: IBM Cloud account apikey
+  workspaces:
+  - name: task-pvc
+    mountPath: /workarea     
   steps:
     - name: test-redis
       image: docker.io/jerhoconnor/toolbox:latest
@@ -297,5 +300,5 @@ spec:
         - set -eo pipefail;
           echo TESTING;
           dig ${REDIS_ENDPOINT};
-          echo "${REDIS_CERT}" > certificate.txt;
-          REDIS_CERTFILE=certificate.txt redli -u rediss://${REDIS_USER}:${REDIS_PASSWORD}@${REDIS_ENDPOINT} ping;
+          echo "${REDIS_CERT}" > /workarea/certificate.txt;
+          REDIS_CERTFILE=/workarea/certificate.txt redli -u rediss://${REDIS_USER}:${REDIS_PASSWORD}@${REDIS_ENDPOINT} ping;
