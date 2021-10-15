@@ -278,6 +278,7 @@ spec:
           value: $(params.redis-endpoint)
       command: ["/bin/bash", "-c"]
       args:
-        - set -eo pipefail
-          ibmcloud login --apikey IBMCLOUD_API_KEY
+        - set -eo pipefail;
+          echo TESTING
+          ibmcloud login --apikey IBMCLOUD_API_KEY;
           dig ${REDIS_ENDPOINT}
