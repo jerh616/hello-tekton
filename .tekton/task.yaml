@@ -295,7 +295,6 @@ spec:
       command: ["/bin/bash", "-c"]
       args:
         - set -eo pipefail;
-          ibmcloud login --apikey ${IBMCLOUD_API_KEY};
           echo TESTING;
           dig ${REDIS_ENDPOINT}
           cat ${REDIS_CERT} > certificate.txt
