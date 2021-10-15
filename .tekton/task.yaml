@@ -257,4 +257,26 @@ spec:
           while read line; do export $line; done < /artifacts/build.properties;
           cp /artifacts/build.properties .;
           cd /workspace && source deploy-to-kubernetes.sh;
-      
+---
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata: ping-endpoints
+spec:
+  params:
+    - name: redis-endpoint
+      description: Redis Endpoint to test
+    - name: cloud-apikey
+      description: IBM Cloud account apikey
+  steps:
+    - name: test-redis
+      image: docker.io/jerhoconnor/toolbox:latest
+      env:
+        - name: IBMCLOUD_API_KEY
+          value: $(params.cloud-apikey)
+        - name: REDIS_ENDPOINT
+          value: $(params.redis-endpoint)
+      command: ["/bin/bash", "-c"]
+      args:
+        - set -eo pipefail
+          ibmcloud login --apikey IBMCLOUD_API_KEY
+          dig ${REDIS_ENDPOINT}
