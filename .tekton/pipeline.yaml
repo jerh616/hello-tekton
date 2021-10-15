@@ -79,3 +79,23 @@ spec:
       workspaces:
       - name: task-pvc
         workspace: pipeline-pvc  
+---
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: endpoint-pipeline
+spec:
+  params:
+    - name: redis-endpoint
+      description: Public or private endpoint to hosted Redis instance
+    - name: cloud-apikey
+      description: IBM Cloud accoint apikey
+  tasks:
+    - name: pipeline-endpoint-test
+      taskRef: 
+        name: ping-endpoints
+      params:
+        - name: redis-endpoint
+          value: $(params.redis-endpoint)
+        - name: cloud-apikey
+          value: cloud-apikey      

@@ -260,7 +260,8 @@ spec:
 ---
 apiVersion: tekton.dev/v1beta1
 kind: Task
-metadata: ping-endpoints
+metadata:
+  name: ping-endpoints
 spec:
   params:
     - name: redis-endpoint
