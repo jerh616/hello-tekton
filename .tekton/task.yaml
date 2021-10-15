@@ -276,9 +276,27 @@ spec:
           value: $(params.cloud-apikey)
         - name: REDIS_ENDPOINT
           value: $(params.redis-endpoint)
+        - name: REDIS_CERT
+          valueFrom:
+            secretKeyRef:
+              name: secure-properties
+              key: redis-cert
+        - name: REDIS_USER
+          valueFrom:
+            configMapKeyRef:
+              name: environment-properties
+              key: redis-user
+        - name: REDIS_PASSWORD
+          valueFrom:
+            secrettKeyRef:
+              name: secure-properties
+              key: redis-password
+                     
       command: ["/bin/bash", "-c"]
       args:
         - set -eo pipefail;
-          echo TESTING
-          ibmcloud login --apikey IBMCLOUD_API_KEY;
+          ibmcloud login --apikey ${IBMCLOUD_API_KEY};
+          echo TESTING;
           dig ${REDIS_ENDPOINT}
+          cat ${REDIS_CERT} > certificate.txt
+          REDIS_CERTFILE=certificate.txt redli -u rediss://${REDIS_USER}:${REDIS_PASSWORD}@${REDIS_ENDPOINT} ping
