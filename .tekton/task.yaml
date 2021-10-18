@@ -304,14 +304,14 @@ spec:
             secretKeyRef:
               name: secure-properties
               key: redis-password
-      script:
-        set -eo pipefail;
-        echo "ENVIRONMENT\n";
+      script: |
+        #!/usr/bin/env bash
+        echo "ENVIRONMENT";
         env;
-        echo "TESTING\n";
+        echo "TESTING";
         dig ${REDIS_ENDPOINT};
         echo "CERTIFICATE"
         echo ${REDIS_CERT};
         echo "${REDIS_CERT}" > ./certificate; 
-        cat ./certificate;
+        cat ./certificate | base64;
         REDIS_CERTFILE=./certificate redli -u rediss://${REDIS_USER}:${REDIS_PASSWORD}@${REDIS_ENDPOINT} ping;
