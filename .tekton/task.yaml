@@ -313,5 +313,5 @@ spec:
         echo "CERTIFICATE"
         echo ${REDIS_CERT};
         echo ${REDIS_CERT} > ./certificate.b64
-        base64 -d -i ./certificate.b64 -o ./certificate;
+        base64 -d ./certificate.b64 > ./certificate;
         REDIS_CERTFILE=./certificate redli -u rediss://${REDIS_USER}:${REDIS_PASSWORD}@${REDIS_ENDPOINT} ping;
