@@ -272,16 +272,16 @@ spec:
   - name: task-pvc
     mountPath: /workarea     
   steps:
-    - name: forever
-      image: docker.io/jerhoconnor/toolbox:v2
-      env:
-        - name: REDIS_CERT
-          valueFrom:
-            secretKeyRef:
-              name: secure-properties
-              key: redis-cert
-      command: ["/bin/bash", "-c", "--"]
-      args: ["while true; do sleep 30; done;"]      
+    # - name: forever
+    #   image: docker.io/jerhoconnor/toolbox:v2
+    #   env:
+    #     - name: REDIS_CERT
+    #       valueFrom:
+    #         secretKeyRef:
+    #           name: secure-properties
+    #           key: redis-cert
+    #   command: ["/bin/bash", "-c", "--"]
+    #   args: ["while true; do sleep 30; done;"]      
     - name: test-redis
       image: docker.io/jerhoconnor/toolbox:v2
       env:
