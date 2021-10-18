@@ -301,6 +301,7 @@ spec:
           echo "ENVIRONMENT";
           env;
           echo "TESTING"
+          sleep(600);
           dig ${REDIS_ENDPOINT};
           echo "${REDIS_CERT}" > /workarea/certificate.txt;
           cat /workarea/certificate.txt
