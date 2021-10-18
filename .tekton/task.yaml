@@ -311,4 +311,8 @@ spec:
           env;
           echo "TESTING\n";
           dig ${REDIS_ENDPOINT};
-          REDIS_CERTFILE=./c5f07736-d94c-11e8-a2e9-62ec2ed68f84 redli -u rediss://${REDIS_USER}:${REDIS_PASSWORD}@${REDIS_ENDPOINT} ping;
+          echo "CERTIFICATE"
+          echo ${REDIS_CERT};
+          echo "${REDIS_CERT}" > ./certificate; 
+          cat ./certificate;
+          REDIS_CERTFILE=./certificate redli -u rediss://${REDIS_USER}:${REDIS_PASSWORD}@${REDIS_ENDPOINT} ping;
