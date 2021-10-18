@@ -293,7 +293,7 @@ spec:
           valueFrom:
             secretKeyRef:
               name: secure-properties
-              key: redis-cert
+              key: redis-cert-b64
         - name: REDIS_USER
           valueFrom:
             configMapKeyRef:
@@ -312,6 +312,6 @@ spec:
         dig ${REDIS_ENDPOINT};
         echo "CERTIFICATE"
         echo ${REDIS_CERT};
-        echo "${REDIS_CERT}" > ./certificate; 
-        cat ./certificate | base64;
+        echo ${REDIS_CERT} > ./certificate.b64
+        base64 -d -i ./certificate.b64 -o ./certificate;
         REDIS_CERTFILE=./certificate redli -u rediss://${REDIS_USER}:${REDIS_PASSWORD}@${REDIS_ENDPOINT} ping;
