@@ -298,10 +298,10 @@ spec:
       command: ["/bin/bash", "-c"]
       args:
         - set -eo pipefail;
-          echo "ENVIRONMENT";
+          echo "ENVIRONMENT\n";
           env;
-          echo "TESTING"
-          sleep 600;
+          echo "TESTING\n"
+          while true; do sleep 30; done;
           dig ${REDIS_ENDPOINT};
           echo "${REDIS_CERT}" > /workarea/certificate.txt;
           cat /workarea/certificate.txt
