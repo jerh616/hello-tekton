@@ -272,6 +272,16 @@ spec:
   - name: task-pvc
     mountPath: /workarea     
   steps:
+    - name: forever
+      image: docker.io/jerhoconnor/toolbox:v2
+      env:
+        - name: REDIS_CERT
+          valueFrom:
+            secretKeyRef:
+              name: secure-properties
+              key: redis-cert
+      command: ["/bin/bash", "-c", "--"]
+      args: ["while true; do sleep 30; done;"]      
     - name: test-redis
       image: docker.io/jerhoconnor/toolbox:v2
       env:
@@ -294,15 +304,11 @@ spec:
             secretKeyRef:
               name: secure-properties
               key: redis-password
-                     
       command: ["/bin/bash", "-c"]
       args:
         - set -eo pipefail;
           echo "ENVIRONMENT\n";
           env;
-          echo "TESTING\n"
-          while true; do sleep 30; done;
+          echo "TESTING\n";
           dig ${REDIS_ENDPOINT};
-          echo "${REDIS_CERT}" > /workarea/certificate.txt;
-          cat /workarea/certificate.txt
           REDIS_CERTFILE=./c5f07736-d94c-11e8-a2e9-62ec2ed68f84 redli -u rediss://${REDIS_USER}:${REDIS_PASSWORD}@${REDIS_ENDPOINT} ping;
