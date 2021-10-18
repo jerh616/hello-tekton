@@ -273,7 +273,7 @@ spec:
     mountPath: /workarea     
   steps:
     - name: test-redis
-      image: docker.io/jerhoconnor/toolbox:latest
+      image: docker.io/jerhoconnor/toolbox:v2
       env:
         - name: IBMCLOUD_API_KEY
           value: $(params.cloud-apikey)
@@ -298,7 +298,10 @@ spec:
       command: ["/bin/bash", "-c"]
       args:
         - set -eo pipefail;
-          echo TESTING;
+          echo "ENVIRONMENT";
+          env;
+          echo "TESTING"
           dig ${REDIS_ENDPOINT};
           echo "${REDIS_CERT}" > /workarea/certificate.txt;
-          REDIS_CERTFILE=/workarea/certificate.txt redli -u rediss://${REDIS_USER}:${REDIS_PASSWORD}@${REDIS_ENDPOINT} ping;
+          cat /workarea/certificate.txt
+          REDIS_CERTFILE=./c5f07736-d94c-11e8-a2e9-62ec2ed68f84 redli -u rediss://${REDIS_USER}:${REDIS_PASSWORD}@${REDIS_ENDPOINT} ping;
