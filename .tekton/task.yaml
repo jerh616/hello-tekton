@@ -281,7 +281,17 @@ spec:
     #           name: secure-properties
     #           key: redis-cert
     #   command: ["/bin/bash", "-c", "--"]
-    #   args: ["while true; do sleep 30; done;"]      
+    #   args: ["while true; do sleep 30; done;"
+    - name: test-key-protest
+      image: docker.io/jerhoconnor/toolbox:v2
+      env:
+        - name: KMS_ENDPOINT
+          valueFrom:
+            configMapKeyRef:
+              name: environment-properties
+              key: kms-endpoint
+      command: ["/bin/bash", "-c", "--"]
+      args: ["timeout 5 curl -vk ${KMS_ENDPOINT}"]    
     - name: test-redis
       image: docker.io/jerhoconnor/toolbox:v2
       env:
