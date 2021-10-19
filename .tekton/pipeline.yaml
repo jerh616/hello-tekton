@@ -90,8 +90,6 @@ spec:
       description: Public or private endpoint to hosted Redis instance
     - name: cloud-apikey
       description: IBM Cloud accoint apikey
-  workspaces:
-    - name: pipeline-pvc    
   tasks:
     - name: pipeline-endpoint-test
       taskRef: 
@@ -101,6 +99,3 @@ spec:
           value: $(params.redis-endpoint)
         - name: cloud-apikey
           value: $(params.cloud-apikey)
-      workspaces:
-        - name: task-pvc
-          workspace: pipeline-pvc    

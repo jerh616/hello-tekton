@@ -268,9 +268,6 @@ spec:
       description: Redis Endpoint to test
     - name: cloud-apikey
       description: IBM Cloud account apikey
-  workspaces:
-  - name: task-pvc
-    mountPath: /workarea     
   steps:
     # - name: forever
     #   image: docker.io/jerhoconnor/toolbox:v2

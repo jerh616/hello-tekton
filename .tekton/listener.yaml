@@ -124,10 +124,6 @@ spec:
       spec:
         pipelineRef:
           name: endpoint-pipeline
-        workspaces:
-          - name: pipeline-pvc
-            persistentVolumeClaim:
-              claimName: pipelinerun-$(uid)-pvc
         params:
           - name: redis-endpoint
             value: $(params.redis-endpoint)
